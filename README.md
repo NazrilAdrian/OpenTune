@@ -1,58 +1,162 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="./Banner.png" alt="OpenTune Banner" width="800">
 </p>
 
-## About Laravel
+# OpenTune 🎵
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**OpenTune** adalah aplikasi web pemutar musik yang memungkinkan pengguna untuk mengunggah, mengelola, mencari, dan memutar lagu secara online. Aplikasi ini dirancang dengan konsep sederhana dan modern agar pengguna dapat mengatur koleksi musik pribadi serta membuat playlist sesuai kebutuhan.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📌 Tentang OpenTune
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+OpenTune dikembangkan sebagai proyek aplikasi berbasis web menggunakan **Laravel**. Sistem ini menyediakan fitur pengelolaan lagu, artis, album, genre, serta playlist.
 
-## Learning Laravel
+Pengguna dapat mengunggah lagu secara individual maupun dalam bentuk album, kemudian mengelola koleksi musik tersebut melalui halaman **Your Song** dan **Your Album**. Pengguna juga dapat mencari lagu dan membuat playlist pribadi.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Selain pengguna biasa, OpenTune memiliki **Admin** yang bertanggung jawab dalam pengelolaan data dan konten yang terdapat di dalam sistem.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## ✨ Fitur Utama
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### 🎧 Music Management
 
-## Agentic Development
+* Upload lagu
+* Upload album dalam bentuk ZIP
+* Memutar lagu
+* Mencari lagu
+* Mengedit metadata lagu
+* Menghapus lagu
+* Mengelola artis
+* Mengelola album
+* Mengelola genre
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 📚 Personal Music Library
 
-```bash
-composer require laravel/boost --dev
+* **Your Song** — menampilkan lagu yang diunggah oleh pengguna
+* **Your Album** — menampilkan album yang dibuat atau diunggah oleh pengguna
+* Edit dan delete lagu atau album milik pengguna
 
-php artisan boost:install
+### 🎶 Playlist
+
+* Membuat playlist
+* Mencari playlist
+* Menambahkan lagu ke playlist
+* Menghapus lagu dari playlist
+* Mengatur urutan lagu dalam playlist
+* Memutar lagu dari playlist
+
+### 🔎 Search & Discovery
+
+* Pencarian lagu berdasarkan keyword
+* Daily Recommendations
+* Recently Uploaded
+* Top This Month
+* Eksplorasi lagu, artis, dan album
+
+### 👤 User & Admin
+
+* Login dan autentikasi pengguna
+* Role **User** dan **Admin**
+* Admin dapat mengelola data pengguna dan konten musik
+
+## 🛠️ Teknologi
+
+* **Laravel**
+* **PHP**
+* **MySQL**
+* **HTML**
+* **CSS**
+* **JavaScript**
+* **Git & GitHub**
+
+## 🗂️ Struktur Modul
+
+| Modul          | Penanggung Jawab        |
+| -------------- | ----------------------- |
+| User & Profile | Nazril Adrian           |
+| Song & Artist  | Syahid Ahmad Yasin      |
+| Playlist       | Rafli Rizqi Fadillah    |
+| Admin & Genre  | Nazla Arina Nurfia Sofa |
+
+## 🔄 Gambaran Sistem
+
+```text
+Login
+  │
+  ├── User
+  │    │
+  │    └── Main Menu
+  │         ├── Home
+  │         ├── Search
+  │         ├── Your Song
+  │         ├── Your Album
+  │         ├── Playlist
+  │         ├── Upload Song
+  │         ├── Upload Album
+  │         └── Profile
+  │
+  └── Admin
+       │
+       └── Admin Menu
+            ├── Dashboard
+            ├── User Management
+            ├── Song Management
+            ├── Album Management
+            ├── Artist Management
+            └── Genre Management
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## 🗄️ Database
 
-## Contributing
+OpenTune menggunakan database relasional dengan beberapa tabel utama:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* `users`
+* `artists`
+* `albums`
+* `genres`
+* `songs`
+* `playlists`
+* `playlist_songs`
 
-## Code of Conduct
+### Relasi Database
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```text
+users 1:N songs
+users 1:N albums
+users 1:N playlists
+artists 1:N songs
+artists 1:N albums
+albums 1:N songs
+genres 1:N songs
+playlists 1:N playlist_songs
+songs 1:N playlist_songs
+```
 
-## Security Vulnerabilities
+## 🎓 Tujuan Pengembangan
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+OpenTune dikembangkan sebagai **tugas untuk mata kuliah Framework Pemrograman Web**.
 
-## License
+Proyek ini bertujuan untuk menerapkan penggunaan framework dalam pengembangan aplikasi web serta mengimplementasikan berbagai konsep pengembangan web, seperti:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* Framework Laravel
+* CRUD
+* Autentikasi dan role pengguna
+* Relasi database
+* Pengelolaan data musik
+* Upload dan pengelolaan file
+* Pembuatan playlist
+* Pencarian data
+* Integrasi antara frontend dan backend
+
+## 👥 Team
+
+| Nama                    | Modul          |
+| ----------------------- | -------------- |
+| Nazril Adrian           | User & Profile |
+| Syahid Ahmad Yasin      | Song & Artist  |
+| Rafli Rizqi Fadillah    | Playlist       |
+| Nazla Arina Nurfia Sofa | Admin & Genre  |
+
+---
+
+<p align="center">
+  <b>OpenTune — Your Music, Your Collection, Your Playlist. 🎵</b>
+</p>
