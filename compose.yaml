@@ -19,6 +19,7 @@ services:
             IGNITION_LOCAL_SITES_PATH: '${PWD}'
         volumes:
             - '.:/var/www/html'
+            - './docker/php/zz-opentune.ini:/etc/php/8.5/cli/conf.d/zz-opentune.ini'
         networks:
             - sail
         depends_on:
