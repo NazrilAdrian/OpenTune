@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\{UserController, ProfileController};
 use App\Http\Controllers\{SongController, AlbumController, ArtistController};
+use App\Http\Controllers\{PlaylistController, PlaylistSongController};
+
 
 // ===== MODUL USER & PROFILE (Nazril) =====
 Route::middleware('guest')->group(function () {
@@ -34,6 +36,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('songs',   SongController::class)->except(['index', 'show']);
     Route::resource('albums',  AlbumController::class)->except(['index', 'show']);
     Route::resource('artists', ArtistController::class)->except(['index', 'show']);
+});
+
+// ===== MODUL PLAYLIST (Rafli) =====
+Route::middleware('auth')->group(function () {
+    Route::resource('playlists', PlaylistController::class);
+    Route::get('/playlists/{playlist}/play', [PlaylistController::class, 'play'])->name('playlists.play');
+
+    Route::post('/playlists/{playlist}/songs', [PlaylistSongController::class, 'store'])->name('playlists.songs.store');
+    Route::patch('/playlists/{playlist}/songs/reorder', [PlaylistSongController::class, 'updatePosition'])->name('playlists.songs.reorder');
+    Route::delete('/playlists/{playlist}/songs/{song}', [PlaylistSongController::class, 'destroy'])->name('playlists.songs.destroy');
 });
 
 // Publik (didefinisikan SETELAH group agar /songs/create tidak tertangkap {song})
