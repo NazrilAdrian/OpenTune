@@ -37,4 +37,5 @@ class LoginRequest extends FormRequest
         'login.required'    => 'Email atau username wajib diisi.',
         'password.required' => 'Password wajib diisi.',
     ];
+    }
 }
