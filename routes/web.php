@@ -7,6 +7,9 @@ use App\Http\Controllers\{AdminController, AdminSongController, AdminUserControl
 
 
 // ===== MODUL USER & PROFILE (Nazril) =====
+// Landing page (path '/' sudah dipakai route 'home' milik modul Song, jadi memakai '/landing')
+Route::get('/landing', fn () => view('welcome'))->name('landing');
+
 Route::middleware('guest')->group(function () {
     Route::get('/register', [UserController::class, 'create'])->name('register');
     Route::post('/register', [UserController::class, 'store'])->name('register.store');
@@ -22,7 +25,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::match(['put', 'patch'], '/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 

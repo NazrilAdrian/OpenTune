@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
 
 class RegisterRequest extends FormRequest
 {
@@ -12,22 +11,20 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // regex melarang spasi & '@' agar username tidak tertukar dengan email saat login
-            'username' => ['required', 'string', 'max:50', 'regex:/^[A-Za-z0-9_.-]+$/', 'unique:users,username'],
-            'email'    => ['required', 'email', 'max:100', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
-            'terms'    => ['accepted'],
+            // username juga unique karena kolomnya unique di database
+            'username' => ['required', 'string', 'max:50', 'unique:users,username'],
+            'email'    => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'min:8', 'confirmed'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'username.regex'    => 'Username hanya boleh berisi huruf, angka, titik, garis bawah, dan strip.',
-            'username.unique'   => 'Username sudah dipakai.',
-            'email.unique'      => 'Email sudah terdaftar.',
+            'username.unique'    => 'Username sudah dipakai.',
+            'email.unique'       => 'Email sudah terdaftar.',
+            'password.min'       => 'Password minimal 8 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
-            'terms.accepted'    => 'Kamu harus menyetujui Terms of Service dan Privacy Policy.',
         ];
     }
 }

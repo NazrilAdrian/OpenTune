@@ -5,8 +5,6 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-
-
 class LoginRequest extends FormRequest
 {
     /**
@@ -25,17 +23,18 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login'    => ['required', 'string'],
-            'password' => ['required', 'string'],
-            'remember' => ['nullable', 'boolean'],
+            'email'    => ['required', 'email'],
+            'password' => ['required'],
+            'remember' => ['nullable', 'boolean'], // opsional: checkbox "Remember Me"
         ];
     }
 
     public function messages(): array
     {
-    return [
-        'login.required'    => 'Email atau username wajib diisi.',
-        'password.required' => 'Password wajib diisi.',
-    ];
+        return [
+            'email.required'    => 'Email wajib diisi.',
+            'email.email'       => 'Format email tidak valid.',
+            'password.required' => 'Password wajib diisi.',
+        ];
     }
 }

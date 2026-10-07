@@ -14,10 +14,10 @@ class ProfileUpdateRequest extends FormRequest
         $id = $this->user()->id;
 
         return [
-            'username' => ['required', 'string', 'max:50', 'regex:/^[A-Za-z0-9_.-]+$/',
-                        Rule::unique('users', 'username')->ignore($id)],
-            'email'    => ['required', 'email', 'max:100',
-                        Rule::unique('users', 'email')->ignore($id)],
+            'username' => ['required', 'string', 'max:50',
+                           Rule::unique('users', 'username')->ignore($id)],
+            'email'    => ['required', 'email',
+                           Rule::unique('users', 'email')->ignore($id)],
             'profile_picture' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'], // 2 MB
         ];
     }
@@ -25,7 +25,8 @@ class ProfileUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'username.regex'          => 'Username hanya boleh berisi huruf, angka, titik, garis bawah, dan strip.',
+            'username.unique'         => 'Username sudah dipakai.',
+            'email.unique'            => 'Email sudah terdaftar.',
             'profile_picture.image'   => 'File harus berupa gambar.',
             'profile_picture.mimes'   => 'Format foto harus JPG atau PNG.',
             'profile_picture.max'     => 'Ukuran foto maksimal 2 MB.',

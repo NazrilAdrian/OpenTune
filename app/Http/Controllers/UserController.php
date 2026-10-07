@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -21,11 +21,13 @@ class UserController extends Controller
 
     public function store(RegisterRequest $request): RedirectResponse
     {
+        $data = $request->validated();
+
         // role SELALU 'user' untuk pendaftaran publik. Admin dibuat lewat seeder/admin panel.
         User::create([
-            'username' => $request->username,
-            'email'    => $request->email,
-            'password' => $request->password, // di-hash otomatis oleh cast 'hashed'
+            'username' => $data['username'],
+            'email'    => $data['email'],
+            'password' => Hash::make($data['password']),
             'role'     => 'user',
         ]);
 
@@ -41,23 +43,17 @@ class UserController extends Controller
 
     public function login(LoginRequest $request): RedirectResponse
     {
-        // Input boleh email atau username
-        $field = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $credentials = $request->only('email', 'password');
 
-        if (! Auth::attempt([$field => $request->login, 'password' => $request->password], $request->boolean('remember'))) {
+        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             return back()
-                ->withErrors(['login' => 'Email/username atau kata sandi salah.'])
-                ->onlyInput('login');
+                ->withErrors(['email' => 'Email atau kata sandi salah.'])
+                ->onlyInput('email');
         }
 
         $request->session()->regenerate(); // cegah session fixation
 
-        // Admin diarahkan ke dashboard (milik Nazla) kalau route-nya sudah ada
-        if ($request->user()->isAdmin() && Route::has('admin.dashboard')) {
-            return redirect()->intended(route('admin.dashboard'));
-        }
-
-        return redirect()->intended(route('home'));
+        return redirect()->intended('/');
     }
 
     public function logout(Request $request): RedirectResponse
@@ -66,6 +62,6 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('home');
+        return redirect('/landing');
     }
 }

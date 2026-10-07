@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
@@ -24,10 +25,10 @@ class User extends Authenticatable
 
     // ===== Relasi =====
     // songs() & albums() ditambahkan Syahid (Modul 2) -> jangan duplikat.
-    public function songs() { return $this->hasMany(Song::class); }
-    public function albums() { return $this->hasMany(Album::class); }
+    public function songs(): HasMany { return $this->hasMany(Song::class); }
+    public function albums(): HasMany { return $this->hasMany(Album::class); }
     // playlists() akan ditambahkan setelah model Playlist (Rafli) ter-merge:
-    public function playlists() { return $this->hasMany(Playlist::class); }
+    public function playlists(): HasMany { return $this->hasMany(Playlist::class); }
 
     // ===== Helper =====
     public function isAdmin(): bool
