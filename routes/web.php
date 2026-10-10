@@ -3,7 +3,7 @@
 use App\Http\Controllers\{UserController, ProfileController};
 use App\Http\Controllers\{SongController, AlbumController, ArtistController};
 use App\Http\Controllers\{PlaylistController, PlaylistSongController};
-use App\Http\Controllers\{AdminController, AdminSongController, AdminUserController, GenreController};
+use App\Http\Controllers\{AdminController, AdminSongController, AdminUserController, GenreController, AdminCatalogController};
 
 
 // ===== MODUL USER & PROFILE (Nazril) =====
@@ -60,11 +60,15 @@ Route::get('/artists/{artist}', [ArtistController::class, 'show'])->name('artist
 
 // ===== MODUL ADMIN & GENRE (Nazla) =====
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');   // nama WAJIB persis 'admin.dashboard'
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');   // nama WAJIB persis 'admin.dashboard'
 
     Route::resource('users',  AdminUserController::class)->except(['show']);
     Route::resource('genres', GenreController::class)->except(['show']);
 
     Route::get('/songs', [AdminSongController::class, 'index'])->name('songs.index');
     Route::delete('/songs/{song}', [AdminSongController::class, 'destroy'])->name('songs.destroy');
+
+    Route::get('/albums', [AdminCatalogController::class, 'albums'])->name('albums.index');
+
+    Route::get('/artists', [AdminCatalogController::class, 'artists'])->name('artists.index');
 });
