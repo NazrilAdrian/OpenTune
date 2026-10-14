@@ -53,6 +53,12 @@ class UserController extends Controller
 
         $request->session()->regenerate(); // cegah session fixation
 
+        $user = Auth::user();
+
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+
         return redirect()->intended('/');
     }
 
