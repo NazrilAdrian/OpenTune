@@ -26,12 +26,13 @@
                     <p class="text-lg text-[#1f1f23]">Profile Photo</p>
 
                     <div class="mt-2 flex items-center gap-6">
-                        <label for="profile_picture" class="group relative block h-36 w-36 shrink-0 cursor-pointer overflow-hidden rounded-full border-4 border-white/70 bg-white/40 shadow-md">
+                        <label for="profile_picture" id="photo-label" class="group relative block h-36 w-36 shrink-0 cursor-pointer overflow-hidden rounded-full border-4 border-white/70 bg-[#c9a7f9]/30 shadow-md">
                             <img id="photoPreview"
                                  src="{{ $user->profile_picture_url }}"
                                  alt="Foto profil {{ $user->username }}"
-                                 class="h-full w-full object-cover opacity-40 transition group-hover:opacity-60">
-                            <span class="absolute inset-0 flex items-center justify-center text-[#3a3a40]">
+                                 class="h-full w-full object-cover transition">
+                            {{-- Overlay kamera: tampil saat hover, disembunyikan JS setelah foto dipilih --}}
+                            <span id="camera-overlay" class="absolute inset-0 flex items-center justify-center bg-black/30 text-white opacity-0 transition group-hover:opacity-100">
                                 <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <path d="M3 8a2 2 0 0 1 2-2h2l1.5-2h7L17 6h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z" />
                                     <circle cx="12" cy="13" r="3.5" />
@@ -191,11 +192,15 @@
             // ----- Preview foto profil yang baru dipilih -----
             var fileInput = document.getElementById('profile_picture');
             var preview = document.getElementById('photoPreview');
+            var cameraOverlay = document.getElementById('camera-overlay');
             fileInput.addEventListener('change', function () {
                 var file = fileInput.files && fileInput.files[0];
                 if (file) {
                     preview.src = URL.createObjectURL(file);
-                    preview.classList.remove('opacity-40');
+                    // Sembunyikan overlay kamera permanen setelah foto baru dipilih
+                    if (cameraOverlay) {
+                        cameraOverlay.style.display = 'none';
+                    }
                 }
             });
         })();

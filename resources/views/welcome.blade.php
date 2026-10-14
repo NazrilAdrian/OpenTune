@@ -23,14 +23,14 @@
     <header class="relative z-20">
         <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10" aria-label="Navigasi utama">
             {{-- Logo --}}
-            <a href="{{ url('/landing') }}" class="flex items-center gap-2" aria-label="OpenTune">
+            <a href="{{ route('landing') }}" class="flex items-center gap-2" aria-label="OpenTune">
                 <img src="{{ asset('images/opentune-logo.png') }}" alt="Logo OpenTune" class="h-9 w-9 object-contain" />
                 <span class="text-xl font-semibold tracking-tight text-[#5b34f0]">OpenTune</span>
             </a>
 
             {{-- Menu tengah --}}
             <ul class="hidden items-center gap-12 md:flex">
-                <li><a href="{{ url('/landing') }}" class="font-semibold text-[#2b2b2f]">Home</a></li>
+                <li><a href="{{ route('landing') }}" class="font-semibold text-[#2b2b2f]">Home</a></li>
                 <li><a href="#features" class="text-[#3a3a40] transition hover:text-[#5b34f0]">Features</a></li>
             </ul>
 
@@ -221,7 +221,7 @@
     {{-- ===== Footer ===== --}}
     <footer class="border-t border-[#ece8f6] bg-[#faf9fe]">
         <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-[#55555c] sm:flex-row lg:px-10">
-            <a href="{{ url('/landing') }}" class="flex items-center gap-2 font-semibold text-[#5b34f0]">
+            <a href="{{ route('landing') }}" class="flex items-center gap-2 font-semibold text-[#5b34f0]">
                 <span class="h-5 w-5 rounded-full border-2 border-[#8b5cf6]"></span>
                 OpenTune
             </a>

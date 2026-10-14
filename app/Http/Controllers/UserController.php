@@ -59,7 +59,7 @@ class UserController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        return redirect()->intended('/');
+        return redirect()->intended(route('home'));
     }
 
     public function logout(Request $request): RedirectResponse
@@ -68,6 +68,6 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/landing');
+        return redirect()->route('landing');
     }
 }

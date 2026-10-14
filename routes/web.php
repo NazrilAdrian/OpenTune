@@ -7,8 +7,8 @@ use App\Http\Controllers\{AdminController, AdminSongController, AdminUserControl
 
 
 // ===== MODUL USER & PROFILE (Nazril) =====
-// Landing page (path '/' sudah dipakai route 'home' milik modul Song, jadi memakai '/landing')
-Route::get('/landing', fn () => view('welcome'))->name('landing');
+// '/' → Landing Page (publik, bisa diakses siapa saja)
+Route::get('/', fn () => view('welcome'))->name('landing');
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [UserController::class, 'create'])->name('register');
@@ -30,7 +30,8 @@ Route::middleware('auth')->group(function () {
 });
 
 // ===== MODUL SONG / ARTIST / ALBUM (Syahid) =====
-Route::get('/', [SongController::class, 'home'])->name('home');
+// '/home' → Dashboard utama, wajib login
+Route::middleware('auth')->get('/home', [SongController::class, 'home'])->name('home');
 Route::get('/search', [SongController::class, 'search'])->name('search');
 
 Route::middleware('auth')->group(function () {

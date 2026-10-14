@@ -23,7 +23,7 @@
         <div class="w-full max-w-[420px] rounded-3xl bg-white px-8 py-8 shadow-lg shadow-[#5b3ff0]/10 ring-1 ring-black/[0.03] sm:px-10">
 
             {{-- Logo --}}
-            <a href="{{ url('/landing') }}" class="mb-3 flex items-center justify-center gap-2">
+            <a href="{{ route('landing') }}" class="mb-3 flex items-center justify-center gap-2">
                 <img src="{{ asset('images/opentune-logo.png') }}" alt="Logo OpenTune" class="h-8 w-8 object-contain" />
                 <span class="text-xl font-semibold tracking-tight text-[#5b34f0]">OpenTune</span>
             </a>

@@ -38,12 +38,17 @@ class User extends Authenticatable
 
     public function getProfilePictureUrlAttribute(): string
     {
-        if ($this->profile_picture) {
+        if ($this->profile_picture && Storage::disk('public')->exists($this->profile_picture)) {
             return asset('storage/'.$this->profile_picture);
         }
 
-        $initial = urlencode(strtoupper(mb_substr($this->username ?? 'U', 0, 1)));
-        return "https://placehold.co/300x300/c9a7f9/ffffff?text={$initial}";
+        // Fallback: avatar inisial sebagai SVG data URI (tidak butuh internet)
+        $initial  = strtoupper(mb_substr($this->username ?? 'U', 0, 1));
+        $svg      = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">' .
+                    '<rect width="100" height="100" fill="#c9a7f9"/>' .
+                    '<text x="50" y="50" dy=".35em" text-anchor="middle" font-size="48" font-family="sans-serif" fill="#ffffff">' .
+                    htmlspecialchars($initial) . '</text></svg>';
+        return 'data:image/svg+xml;base64,' . base64_encode($svg);
     }
     
     // Saat user dihapus (hapus akun sendiri ATAU dihapus admin), bersihkan file fisiknya.
