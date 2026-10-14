@@ -19,6 +19,9 @@
 
     @if(!($minimal ?? false))
         @include('components.music-player')
+        @auth
+            @include('components.upload-modal')
+        @endauth
     @endif
 </body>
 </html>

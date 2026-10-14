@@ -67,11 +67,11 @@
                         <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#8d8f96]">
                             <svg viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current" stroke-width="1.7"><path d="M12 16V4m0 0L8 8m4-4 4 4M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>
                         </span>
-                        <span class="min-w-0"><span data-file-name class="block truncate text-sm font-semibold text-[#3e3f45]">{{ $editing ? 'Pilih file baru jika ingin mengganti audio' : 'Belum ada file dipilih' }}</span><span class="block text-xs text-[#9a9ba2]">MP3 atau M4A - Maks. 50 MB</span></span>
+                        <span class="min-w-0"><span id="song-audio-file-name" data-file-name class="block truncate text-sm font-semibold text-[#3e3f45]">{{ $editing ? 'Pilih file baru jika ingin mengganti audio' : 'Belum ada file dipilih' }}</span><span class="block text-xs text-[#9a9ba2]">MP3 atau M4A - Maks. 50 MB</span></span>
                     </div>
                     <span class="shrink-0 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-[#4b4c52] shadow-sm">Pilih File</span>
                 </label>
-                <input id="audio" name="audio" type="file" accept="audio/mpeg,audio/mp4,.mp3,.m4a" {{ $editing ? '' : 'required' }} class="hidden" data-file-label>
+                <input id="audio" name="audio" type="file" accept="audio/mpeg,audio/mp4,.mp3,.m4a" {{ $editing ? '' : 'required' }} class="hidden" data-file-label="#song-audio-file-name">
                 @error('audio')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
             </div>
         </div>

@@ -24,18 +24,7 @@
         <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10" aria-label="Navigasi utama">
             {{-- Logo --}}
             <a href="{{ url('/landing') }}" class="flex items-center gap-2" aria-label="OpenTune">
-                <svg class="h-9 w-9" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <defs>
-                        <linearGradient id="otLogoGradLanding" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#B07CF5" />
-                            <stop offset="1" stop-color="#5B34F0" />
-                        </linearGradient>
-                    </defs>
-                    <circle cx="20" cy="20" r="18" stroke="url(#otLogoGradLanding)" stroke-width="3" />
-                    <path d="M12 23v-2.5a8 8 0 0 1 16 0V23" stroke="url(#otLogoGradLanding)" stroke-width="2.6" stroke-linecap="round" />
-                    <rect x="10.5" y="22" width="4.5" height="7" rx="2" fill="url(#otLogoGradLanding)" />
-                    <rect x="25" y="22" width="4.5" height="7" rx="2" fill="url(#otLogoGradLanding)" />
-                </svg>
+                <img src="{{ asset('images/opentune-logo.png') }}" alt="Logo OpenTune" class="h-9 w-9 object-contain" />
                 <span class="text-xl font-semibold tracking-tight text-[#5b34f0]">OpenTune</span>
             </a>
 
@@ -102,7 +91,7 @@
                         {{-- Sidebar --}}
                         <aside class="w-[20%] shrink-0 border-r border-[#eeeaf6] p-2.5">
                             <div class="mb-3 flex items-center gap-1">
-                                <span class="h-3 w-3 rounded-full border-2 border-[#8b5cf6]"></span>
+                                <img src="{{ asset('images/opentune-logo.png') }}" alt="" class="h-3 w-3 shrink-0 object-contain">
                                 <span class="text-[8px] font-semibold text-[#5b34f0]">OpenTune</span>
                             </div>
                             <div class="rounded-sm bg-gradient-to-r from-[#b78cf7] to-[#7c4dff] py-1 text-center text-[7px] font-semibold text-white">Home</div>

@@ -12,8 +12,8 @@
             @csrf @method('PUT')
             @include('songs.form')
             <div class="mt-6 flex flex-col gap-3 sm:flex-row">
-                <button class="h-11 flex-1 rounded-xl bg-gradient-to-r from-[#d19cff] to-[#5b32eb] font-semibold text-white shadow-sm">Simpan Perubahan</button>
-                <a href="{{ route('songs.show', $song) }}" class="flex h-11 flex-1 items-center justify-center rounded-xl border border-[#dfe1e7] bg-white font-semibold text-[#4a4b52]">Batal</a>
+                <button type="submit" class="upload-form-action flex-1">Simpan Perubahan</button>
+                <a href="{{ route('songs.show', $song) }}" class="upload-form-action flex-1">Batal</a>
             </div>
         </form>
     </div>

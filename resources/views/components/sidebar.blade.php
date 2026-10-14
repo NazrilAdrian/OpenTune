@@ -19,18 +19,9 @@
         <a href="{{ route('home') }}"
            class="mb-10 flex items-center gap-2.5 px-3">
 
-            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#c89aff] to-[#5b2ff0] text-white">
-
-                <svg viewBox="0 0 24 24"
-                     class="h-6 w-6 fill-none stroke-current"
-                     stroke-width="1.8">
-
-                    <path d="M8 17.5a2.5 2.5 0 1 1-2-2.45V8.8L18 6v8.7a2.5 2.5 0 1 1-2-2.45V9L8 10.5v7Z"/>
-                    <path d="M5 8a7 7 0 0 1 0 8M19 8a7 7 0 0 0 0 8"/>
-
-                </svg>
-
-            </span>
+            <img src="{{ asset('images/opentune-logo.png') }}"
+                 alt="Logo OpenTune"
+                 class="h-10 w-10 shrink-0 object-contain">
 
             <span class="text-[25px] font-bold text-[#5b37ea]">
                 OpenTune

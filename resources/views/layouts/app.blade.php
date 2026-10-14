@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'OpenTune')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @if(!($minimal ?? false))
+        @vite(['resources/js/modul2.js'])
+    @endif
 </head>
 <body class="min-h-screen bg-[#f7f9fc] text-[#2f3035] antialiased font-sans">
     @if(!($minimal ?? false))
@@ -19,6 +22,9 @@
 
     @if(!($minimal ?? false))
         @include('components.music-player')
+        @auth
+            @include('components.upload-modal')
+        @endauth
     @endif
 </body>
 </html>

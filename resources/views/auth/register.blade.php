@@ -24,18 +24,7 @@
 
             {{-- Logo --}}
             <a href="{{ url('/landing') }}" class="mb-3 flex items-center justify-center gap-2">
-                <svg class="h-8 w-8" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <defs>
-                        <linearGradient id="otLogoGradRegister" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#B07CF5" />
-                            <stop offset="1" stop-color="#5B34F0" />
-                        </linearGradient>
-                    </defs>
-                    <circle cx="20" cy="20" r="18" stroke="url(#otLogoGradRegister)" stroke-width="3" />
-                    <path d="M12 23v-2.5a8 8 0 0 1 16 0V23" stroke="url(#otLogoGradRegister)" stroke-width="2.6" stroke-linecap="round" />
-                    <rect x="10.5" y="22" width="4.5" height="7" rx="2" fill="url(#otLogoGradRegister)" />
-                    <rect x="25" y="22" width="4.5" height="7" rx="2" fill="url(#otLogoGradRegister)" />
-                </svg>
+                <img src="{{ asset('images/opentune-logo.png') }}" alt="Logo OpenTune" class="h-8 w-8 object-contain" />
                 <span class="text-xl font-semibold tracking-tight text-[#5b34f0]">OpenTune</span>
             </a>
 

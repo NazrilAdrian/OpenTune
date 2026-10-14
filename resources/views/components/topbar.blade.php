@@ -16,9 +16,9 @@
 
         <div class="hidden items-center gap-4 sm:flex">
             @auth
-                <a href="{{ route('songs.create') }}" class="inline-flex h-11 min-w-[138px] items-center justify-center rounded-xl bg-gradient-to-r from-[#d19cff] to-[#5b32eb] px-6 text-base font-semibold text-white shadow-sm transition hover:brightness-105">
+                <button type="button" data-open-upload-modal class="upload-form-action min-w-[138px] px-6 text-base">
                     Upload
-                </a>
+                </button>
                 <a href="{{ route('profile.show') }}" class="block h-11 w-11 overflow-hidden rounded-full ring-2 ring-white shadow-sm">
                     <img src="{{ auth()->user()->profile_picture_url }}" alt="{{ auth()->user()->username }}" class="h-full w-full object-cover">
                 </a>

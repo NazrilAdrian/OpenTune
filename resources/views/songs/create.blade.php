@@ -13,8 +13,8 @@
             @csrf
             @include('songs.form')
             <div class="mt-6 grid gap-3 sm:grid-cols-2">
-                <button class="h-11 rounded-xl bg-gradient-to-r from-[#d19cff] to-[#5b32eb] font-semibold text-white shadow-sm">Upload Song</button>
-                <a href="{{ url()->previous() }}" class="flex h-11 items-center justify-center rounded-xl bg-gradient-to-r from-[#d19cff] to-[#5b32eb] font-semibold text-white shadow-sm">Cancel</a>
+                <button type="submit" class="upload-form-action">Upload Song</button>
+                <a href="{{ route('songs.mine') }}" class="upload-form-action">Cancel</a>
             </div>
         </form>
         <p class="mt-3 text-center text-xs text-[#9a9ba2]">Pastikan file audio sesuai format MP3 atau M4A agar proses upload berhasil.</p>

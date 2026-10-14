@@ -23,8 +23,8 @@
 <body>
 <aside class="admin-sidebar fixed inset-y-0 left-0 z-30 border-r border-[#eceaf2] bg-white px-4 py-6">
     <a href="{{ route('admin.dashboard') }}" class="mb-9 flex items-center gap-2 px-1">
-        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#c18aff] to-[#6537e9] text-white font-bold">OT</span>
-        <span class="brand-label text-lg font-bold text-[#5d35df]">OT.Admin</span>
+        <img src="{{ asset('images/opentune-logo.png') }}" alt="Logo OpenTune" class="h-9 w-9 shrink-0 object-contain">
+        <span class="brand-label text-lg font-bold text-[#5d35df]">OpenTune Admin</span>
     </a>
     <nav class="space-y-2">
         <a class="admin-nav {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}"><span>▦</span><span class="nav-label">Dashboard</span></a>

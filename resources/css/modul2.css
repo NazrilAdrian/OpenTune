@@ -14,3 +14,16 @@
         @apply block w-full rounded-xl border border-[#dfe1e7] bg-white px-4 py-3 text-sm text-[#303137] outline-none transition placeholder:text-[#a2a4aa] focus:border-[#8767f2] focus:ring-4 focus:ring-[#8767f2]/10;
     }
 }
+
+
+@layer components {
+    .upload-form-action {
+        @apply inline-flex h-11 items-center justify-center rounded-xl border border-[#6b45ed] bg-white px-5 text-center font-semibold text-[#5b32eb] shadow-sm transition duration-200;
+    }
+
+    .upload-form-action:hover,
+    .upload-form-action:focus-visible {
+        @apply border-transparent text-white outline-none;
+        background-image: linear-gradient(90deg, #d19cff, #5b32eb);
+    }
+}
