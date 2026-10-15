@@ -41,7 +41,10 @@
 </aside>
 <div class="admin-main min-h-screen">
     <header class="sticky top-0 z-20 flex h-[72px] items-center justify-between border-b border-[#eceaf2] bg-white/95 px-5 sm:px-8">
-        <div class="text-sm text-gray-400">OpenTune <span class="mx-2">/</span><span class="font-semibold text-gray-700">@yield('heading','Dashboard')</span></div>
+        <div class="flex min-w-0 items-center gap-3">
+            <button type="button" onclick="if (window.history.length > 1) { window.history.back(); } else { window.location.href='{{ route('admin.dashboard') }}'; }" aria-label="Kembali" title="Kembali" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white text-lg text-gray-600 transition hover:border-purple-300 hover:bg-purple-50 hover:text-purple-700">×</button>
+            <div class="truncate text-sm text-gray-400">OpenTune <span class="mx-2">/</span><span class="font-semibold text-gray-700">@yield('heading','Dashboard')</span></div>
+        </div>
         <div class="flex items-center gap-3"><div class="text-right"><p class="text-sm font-semibold">{{ auth()->user()->username ?? 'Admin' }}</p><p class="text-xs text-gray-400">Administrator</p></div><img class="h-9 w-9 rounded-full object-cover" src="{{ auth()->user()->profile_picture_url ?? 'https://placehold.co/80x80/c9a7f9/ffffff?text=A' }}" alt="Foto admin"></div>
     </header>
     <main class="p-5 sm:p-8">

@@ -67,9 +67,18 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('genres', GenreController::class)->except(['show']);
 
     Route::get('/songs', [AdminSongController::class, 'index'])->name('songs.index');
+
+    Route::get('/songs/{song}/edit', [AdminSongController::class, 'edit'])->name('songs.edit');
+
+    Route::put('/songs/{song}', [AdminSongController::class, 'update'])->name('songs.update');
+
+    Route::patch('/songs/{song}', [AdminSongController::class, 'update']);
+
     Route::delete('/songs/{song}', [AdminSongController::class, 'destroy'])->name('songs.destroy');
 
-    Route::get('/albums', [AdminCatalogController::class, 'albums'])->name('albums.index');
+    Route::resource('albums', AdminCatalogController::class)->except(['show']);
+    Route::resource('artists', AdminCatalogController::class)->except(['show']);
 
-    Route::get('/artists', [AdminCatalogController::class, 'artists'])->name('artists.index');
+    Route::delete('/albums/{album}', [AdminCatalogController::class, 'destroyAlbum'])->name('albums.destroy');
+    Route::delete('/artists/{artist}', [AdminCatalogController::class, 'destroyArtist'])->name('artists.destroy');
 });
