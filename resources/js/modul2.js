@@ -28,15 +28,17 @@
             playButton.setAttribute('aria-label', playing ? 'Pause' : 'Putar');
         };
 
+        let hasSong = false;
         const loadSong = ({ title: songTitle, artist: songArtist, cover: songCover, audio: songAudio }) => {
             title.textContent = songTitle || 'Tanpa judul';
             artist.textContent = songArtist || 'Unknown Artist';
             cover.src = songCover || 'https://placehold.co/100x100/e9e5ff/5b36e8?text=Song';
             audio.src = songAudio;
+            hasSong = true;
             audio.load();
             player.classList.remove('hidden');
             audio.play().catch(() => {});
-            setPlayingIcon(true);
+            setPlayingIcon(false);
         };
 
         document.addEventListener('click', (event) => {
@@ -52,7 +54,7 @@
         });
 
         playButton?.addEventListener('click', () => {
-            if (!audio.src) return;
+            if (!hasSong) return;
             if (audio.paused) audio.play().catch(() => {});
             else audio.pause();
         });
@@ -79,6 +81,11 @@
         close?.addEventListener('click', () => {
             audio.pause();
             audio.removeAttribute('src');
+            audio.load();
+            hasSong = false;
+            current.textContent = '0:00';
+            duration.textContent = '0:00';
+            progress.value = '0';
             player.classList.add('hidden');
             setPlayingIcon(false);
         });
