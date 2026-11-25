@@ -26,9 +26,9 @@ class UserController extends Controller
         // role SELALU 'user' untuk pendaftaran publik. Admin dibuat lewat seeder/admin panel.
         User::create([
             'username' => $data['username'],
-            'email'    => $data['email'],
+            'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role'     => 'user',
+            'role' => 'user',
         ]);
 
         // Sesuai activity diagram: setelah register diarahkan ke halaman Login
@@ -43,12 +43,17 @@ class UserController extends Controller
 
     public function login(LoginRequest $request): RedirectResponse
     {
-        $credentials = $request->only('email', 'password');
+        $login = $request->validated('login');
+        $loginField = filter_var($login, FILTER_VALIDATE_EMAIL) !== false ? 'email' : 'username';
+        $credentials = [
+            $loginField => $login,
+            'password' => $request->validated('password'),
+        ];
 
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             return back()
-                ->withErrors(['email' => 'Email atau kata sandi salah.'])
-                ->onlyInput('email');
+                ->withErrors(['login' => 'Username/email atau kata sandi salah.'])
+                ->onlyInput('login');
         }
 
         $request->session()->regenerate(); // cegah session fixation

@@ -36,7 +36,7 @@
                 </p>
             </div>
 
-            <form method="POST" action="{{ route('register.store') }}" novalidate class="space-y-3.5">
+            <form method="POST" action="{{ route('register.store') }}" class="space-y-3.5">
                 @csrf
 
                 {{-- Username --}}
@@ -69,6 +69,7 @@
                         value="{{ old('email') }}"
                         placeholder="user@example.com"
                         autocomplete="email"
+                        maxlength="100"
                         required
                         class="block w-full rounded-md border bg-white px-3 py-2.5 text-xs text-[#2b2b2f] placeholder-[#8a8a92] outline-none transition focus:border-[#5b34f0] focus:ring-2 focus:ring-[#5b34f0]/20 @error('email') border-red-400 @else border-[#dcdce1] @enderror"
                     >
@@ -82,7 +83,7 @@
                     <div class="mb-1.5 flex items-center justify-between">
                         <label for="password" class="block text-xs font-medium text-[#1f1f23]">Password</label>
                         {{-- centang muncul otomatis saat password >= 8 karakter --}}
-                        <svg data-check-password class="hidden h-4 w-4 text-[#1f1f23]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <svg data-check-password class="hidden h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M5 12.5l4.5 4.5L19 7.5" />
                         </svg>
                     </div>
@@ -110,7 +111,7 @@
                             </svg>
                         </button>
                     </div>
-                    <p class="mt-1 text-[10px] leading-snug text-[#3a3a40]">Must be at least 8 characters long.</p>
+                    <p data-password-hint class="mt-1 text-[10px] leading-snug text-[#3a3a40]">Must be at least 8 characters long.</p>
                     @error('password')
                         <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                     @enderror
@@ -121,7 +122,7 @@
                     <div class="mb-1.5 flex items-center justify-between">
                         <label for="password_confirmation" class="block text-xs font-medium text-[#1f1f23]">Confirm Password</label>
                         {{-- centang muncul otomatis saat konfirmasi cocok --}}
-                        <svg data-check-confirm class="hidden h-4 w-4 text-[#1f1f23]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <svg data-check-confirm class="hidden h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M5 12.5l4.5 4.5L19 7.5" />
                         </svg>
                     </div>
@@ -186,11 +187,12 @@
                 <span class="h-px flex-1 bg-[#2b2b2f]/70"></span>
             </div>
 
-            {{-- Google (placeholder, belum ada integrasi OAuth) --}}
-            <button type="button"
-                    class="w-full rounded-full border border-[#dcdce1] bg-white py-2.5 text-xs font-medium text-[#1f1f23] transition hover:bg-[#f7f7fa] focus:outline-none focus:ring-2 focus:ring-[#5b34f0]/20">
-                Continue with Google
-            </button>
+            {{-- Google Sign-In --}}
+            <a href="{{ route('auth.google.redirect') }}"
+                    class="flex w-full items-center justify-center gap-2 rounded-full border border-[#dcdce1] bg-white py-2.5 text-center text-xs font-medium text-[#1f1f23] transition hover:bg-[#f7f7fa] focus:outline-none focus:ring-2 focus:ring-[#5b34f0]/20">
+                <img src="{{ asset('images/google-logo.svg') }}" alt="" class="h-5 w-5 shrink-0">
+                <span>Continue with Google</span>
+            </a>
 
             {{-- Link ke login --}}
             <p class="mt-4 text-center text-[11px] text-[#1f1f23]">
@@ -218,10 +220,17 @@
             var confirm = document.getElementById('password_confirmation');
             var checkPw = document.querySelector('[data-check-password]');
             var checkConfirm = document.querySelector('[data-check-confirm]');
+            var passwordHint = document.querySelector('[data-password-hint]');
 
             function update() {
-                checkPw.classList.toggle('hidden', pw.value.length < 8);
-                checkConfirm.classList.toggle('hidden', !(confirm.value.length > 0 && confirm.value === pw.value));
+                var passwordIsLongEnough = pw.value.length >= 8;
+
+                checkPw.classList.toggle('hidden', !passwordIsLongEnough);
+                checkConfirm.classList.toggle(
+                    'hidden',
+                    !(passwordIsLongEnough && confirm.value.length > 0 && confirm.value === pw.value)
+                );
+                passwordHint.hidden = passwordIsLongEnough;
             }
 
             pw.addEventListener('input', update);

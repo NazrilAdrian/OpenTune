@@ -34,24 +34,25 @@
                 <p class="mt-2 text-sm text-[#55555c]">Please enter your detail to sign in.</p>
             </div>
 
-            <form method="POST" action="{{ route('login.attempt') }}" novalidate class="space-y-4">
+            <form method="POST" action="{{ route('login.attempt') }}" class="space-y-4">
                 @csrf
 
-                {{-- Email --}}
+                {{-- Username or Email --}}
                 <div>
-                    <label for="email" class="mb-1.5 block text-xs font-medium text-[#1f1f23]">Email</label>
+                    <label for="login" class="mb-1.5 block text-xs font-medium text-[#1f1f23]">Username or Email</label>
                     <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        value="{{ old('email') }}"
-                        placeholder="Enter your email"
-                        autocomplete="email"
+                        id="login"
+                        type="text"
+                        name="login"
+                        value="{{ old('login') }}"
+                        placeholder="Enter your username or email"
+                        autocomplete="username"
+                        maxlength="100"
                         autofocus
                         required
-                        class="block w-full rounded-md border bg-white px-3 py-2.5 text-xs text-[#2b2b2f] placeholder-[#8a8a92] outline-none transition focus:border-[#5b34f0] focus:ring-2 focus:ring-[#5b34f0]/20 @error('email') border-red-400 @else border-[#dcdce1] @enderror"
+                        class="block w-full rounded-md border bg-white px-3 py-2.5 text-xs text-[#2b2b2f] placeholder-[#8a8a92] outline-none transition focus:border-[#5b34f0] focus:ring-2 focus:ring-[#5b34f0]/20 @error('login') border-red-400 @else border-[#dcdce1] @enderror"
                     >
-                    @error('email')
+                    @error('login')
                         <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
@@ -102,7 +103,7 @@
                         >
                         Remember Me
                     </label>
-                    <a href="#" class="text-xs font-medium text-[#5b34f0] hover:underline">Forgot Password?</a>
+                    <a href="{{ route('password.request') }}" class="text-xs font-medium text-[#5b34f0] hover:underline">Forgot Password?</a>
                 </div>
                 @error('remember')
                     <p class="text-xs text-red-500">{{ $message }}</p>
@@ -122,11 +123,12 @@
                 <span class="h-px flex-1 bg-[#2b2b2f]/70"></span>
             </div>
 
-            {{-- Google (placeholder, belum ada integrasi OAuth) --}}
-            <button type="button"
-                    class="w-full rounded-full border border-[#dcdce1] bg-white py-2.5 text-xs font-medium text-[#1f1f23] transition hover:bg-[#f7f7fa] focus:outline-none focus:ring-2 focus:ring-[#5b34f0]/20">
-                Continue with Google
-            </button>
+            {{-- Google Sign-In --}}
+            <a href="{{ route('auth.google.redirect') }}"
+                    class="flex w-full items-center justify-center gap-2 rounded-full border border-[#dcdce1] bg-white py-2.5 text-center text-xs font-medium text-[#1f1f23] transition hover:bg-[#f7f7fa] focus:outline-none focus:ring-2 focus:ring-[#5b34f0]/20">
+                <img src="{{ asset('images/google-logo.svg') }}" alt="" class="h-5 w-5 shrink-0">
+                <span>Continue with Google</span>
+            </a>
 
             {{-- Link ke register --}}
             <p class="mt-6 text-center text-[11px] text-[#1f1f23]">

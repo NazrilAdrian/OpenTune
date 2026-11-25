@@ -1,10 +1,19 @@
 <?php
 
-use App\Http\Controllers\{UserController, ProfileController};
-use App\Http\Controllers\{SongController, AlbumController, ArtistController};
-use App\Http\Controllers\{PlaylistController, PlaylistSongController};
-use App\Http\Controllers\{AdminController, AdminSongController, AdminUserController, GenreController, AdminCatalogController};
-
+use App\Http\Controllers\AdminCatalogController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminSongController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\PlaylistSongController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SongController;
+use App\Http\Controllers\UserController;
 
 // ===== MODUL USER & PROFILE (Nazril) =====
 // '/' → Landing Page (publik, bisa diakses siapa saja)
@@ -18,6 +27,24 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [UserController::class, 'login'])
         ->middleware('throttle:5,1')                                              // maks 5 percobaan / menit
         ->name('login.attempt');
+
+    Route::get('/forgot-password', [PasswordResetController::class, 'create'])
+        ->name('password.request');
+    Route::post('/forgot-password', [PasswordResetController::class, 'store'])
+        ->middleware('throttle:6,1')
+        ->name('password.email');
+    Route::get('/reset-password/{token}', [PasswordResetController::class, 'edit'])
+        ->name('password.reset');
+    Route::post('/reset-password', [PasswordResetController::class, 'update'])
+        ->middleware('throttle:6,1')
+        ->name('password.update');
+
+    Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])
+        ->middleware('throttle:10,1')
+        ->name('auth.google.redirect');
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])
+        ->middleware('throttle:10,1')
+        ->name('auth.google.callback');
 });
 
 Route::middleware('auth')->group(function () {
@@ -38,8 +65,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-music', [SongController::class, 'mine'])->name('songs.mine');
 
     // create/store/edit/update/destroy (show dibuat terpisah di bawah)
-    Route::resource('songs',   SongController::class)->except(['index', 'show']);
-    Route::resource('albums',  AlbumController::class)->except(['index', 'show']);
+    Route::resource('songs', SongController::class)->except(['index', 'show']);
+    Route::resource('albums', AlbumController::class)->except(['index', 'show']);
     Route::resource('artists', ArtistController::class)->except(['index', 'show']);
 });
 
@@ -54,16 +81,15 @@ Route::middleware('auth')->group(function () {
 });
 
 // Publik (didefinisikan SETELAH group agar /songs/create tidak tertangkap {song})
-Route::get('/songs/{song}',     [SongController::class,   'show'])->name('songs.show');
-Route::get('/albums/{album}',   [AlbumController::class,  'show'])->name('albums.show');
+Route::get('/songs/{song}', [SongController::class,   'show'])->name('songs.show');
+Route::get('/albums/{album}', [AlbumController::class,  'show'])->name('albums.show');
 Route::get('/artists/{artist}', [ArtistController::class, 'show'])->name('artists.show');
-
 
 // ===== MODUL ADMIN & GENRE (Nazla) =====
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');   // nama WAJIB persis 'admin.dashboard'
 
-    Route::resource('users',  AdminUserController::class)->except(['show']);
+    Route::resource('users', AdminUserController::class)->except(['show']);
     Route::resource('genres', GenreController::class)->except(['show']);
 
     Route::get('/songs', [AdminSongController::class, 'index'])->name('songs.index');
