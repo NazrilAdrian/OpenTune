@@ -9,6 +9,14 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+@layer base {
+    button:not(:disabled),
+    input[type='button']:not(:disabled),
+    input[type='reset']:not(:disabled),
+    input[type='submit']:not(:disabled) {
+        cursor: pointer;
+    }
+}
 
 @layer components {
     .upload-form-action {

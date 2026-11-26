@@ -34,7 +34,13 @@
                 <p class="mt-2 text-sm text-[#55555c]">Please enter your detail to sign in.</p>
             </div>
 
-            <form method="POST" action="{{ route('login.attempt') }}" class="space-y-4">
+            @if (session('google_error'))
+                <div role="alert" class="mb-5 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-900">
+                    {{ session('google_error') }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('login.attempt') }}" autocomplete="off" class="space-y-4">
                 @csrf
 
                 {{-- Username or Email --}}
@@ -44,9 +50,8 @@
                         id="login"
                         type="text"
                         name="login"
-                        value="{{ old('login') }}"
                         placeholder="Enter your username or email"
-                        autocomplete="username"
+                        autocomplete="off"
                         maxlength="100"
                         autofocus
                         required
@@ -66,7 +71,7 @@
                             type="password"
                             name="password"
                             placeholder="Enter your password"
-                            autocomplete="current-password"
+                            autocomplete="off"
                             required
                             class="block w-full rounded-md border bg-white py-2.5 pl-3 pr-10 text-xs text-[#2b2b2f] placeholder-[#8a8a92] outline-none transition focus:border-[#5b34f0] focus:ring-2 focus:ring-[#5b34f0]/20 @error('password') border-red-400 @else border-[#dcdce1] @enderror"
                         >

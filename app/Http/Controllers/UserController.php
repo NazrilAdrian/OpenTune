@@ -52,8 +52,7 @@ class UserController extends Controller
 
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             return back()
-                ->withErrors(['login' => 'Username/email atau kata sandi salah.'])
-                ->onlyInput('login');
+                ->withErrors(['login' => 'Username/email atau kata sandi salah.']);
         }
 
         $request->session()->regenerate(); // cegah session fixation

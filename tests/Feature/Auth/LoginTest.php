@@ -73,7 +73,29 @@ class LoginTest extends TestCase
 
         $response->assertRedirect(route('login'))
             ->assertSessionHasErrors('login')
-            ->assertSessionHas('_old_input.login', 'unknown-user');
+            ->assertSessionMissing('_old_input.login');
         $this->assertGuest();
+    }
+
+    public function test_login_page_does_not_restore_credentials_or_request_browser_autofill(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->withSession(['_old_input' => [
+                'login' => 'previous-user',
+                'password' => 'previous-password',
+            ]])
+            ->post(route('logout'))
+            ->assertRedirect(route('landing'));
+
+        $response = $this->get(route('login'));
+
+        $response->assertOk()
+            ->assertSee('autocomplete="off"', false)
+            ->assertDontSee('previous-user', false)
+            ->assertDontSee('previous-password', false)
+            ->assertDontSee('value="previous-user"', false)
+            ->assertDontSee('value="previous-password"', false);
     }
 }

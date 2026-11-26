@@ -15,11 +15,14 @@ class GoogleAuthController extends Controller
 {
     public function redirect(): RedirectResponse
     {
-        abort_unless(
-            config('services.google.client_id') && config('services.google.client_secret'),
-            503,
-            'Google Sign-In belum dikonfigurasi.'
-        );
+        if (! config('services.google.client_id') || ! config('services.google.client_secret')) {
+            return redirect()->route('login')->with(
+                'google_error',
+                'Login Google belum diaktifkan di lingkungan ini. Admin perlu mengatur GOOGLE_CLIENT_ID dan '
+                    .'GOOGLE_CLIENT_SECRET di .env, serta mendaftarkan callback URL di Google Cloud. '
+                    .'Jangan bagikan atau commit secret; Anda tetap bisa login dengan username atau email.'
+            );
+        }
 
         $state = Str::random(40);
         $codeVerifier = Str::random(64);

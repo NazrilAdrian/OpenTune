@@ -23,6 +23,26 @@ class GoogleAuthTest extends TestCase
         ]);
     }
 
+    public function test_missing_google_credentials_redirects_to_login_with_setup_instructions(): void
+    {
+        config([
+            'services.google.client_id' => null,
+            'services.google.client_secret' => null,
+        ]);
+
+        $response = $this->get(route('auth.google.redirect'));
+
+        $response->assertRedirect(route('login'))
+            ->assertSessionHas('google_error');
+
+        $this->get(route('login'))
+            ->assertOk()
+            ->assertSee('GOOGLE_CLIENT_ID', false)
+            ->assertSee('GOOGLE_CLIENT_SECRET', false)
+            ->assertSee('Jangan bagikan atau commit secret', false)
+            ->assertSee('role="alert"', false);
+    }
+
     public function test_google_redirect_uses_state_and_pkce(): void
     {
         $response = $this->get(route('auth.google.redirect'));
